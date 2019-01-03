@@ -1,4 +1,4 @@
-# deque-bench-tests [![Build Status](https://travis-ci.com/ef-ds/stack-bench-tests.svg?branch=master)](https://travis-ci.com/ef-ds/stack-bench-tests)
+# stack-bench-tests [![Build Status](https://travis-ci.com/ef-ds/stack-bench-tests.svg?branch=master)](https://travis-ci.com/ef-ds/stack-bench-tests)
 
 Package stack-bench-tests contains benchmark tests comparing [stack](https://github.com/ef-ds/stack) with other stacks.
 
