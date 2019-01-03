@@ -1,0 +1,8 @@
+github.com/ef-ds/benchmark v1.0.1 h1:r1z1p01uxztddFQze63n6AHAem8Ayf2iN4tYA1let40=
+github.com/ef-ds/benchmark v1.0.1/go.mod h1:Mm6VShhlyn+jtVNcVHY0aaeOo57P1uXpAacJVoCvYoI=
+github.com/ef-ds/deque v1.0.3 h1:uUS1vcCR+pVddSZElzCi0CghmslSZMSJ+nC5DWzp2iQ=
+github.com/ef-ds/deque v1.0.3/go.mod h1:HvODWzv6Y6kBf3Ah2WzN1bHjDUezGLaAhwuWVwfpEJs=
+github.com/ef-ds/stack v1.0.0 h1:uLFfiR12mIvIhZmbNWr+3z6IkeQsRdMbhwUaSxeu+ak=
+github.com/ef-ds/stack v1.0.0/go.mod h1:wBN71XOk0Hg0Nmnx+3OjwRLEXRZQx2fY/+FjpQPcsO0=
+gopkg.in/karalabe/cookiejar.v2 v2.0.0-20150724131613-8dcd6a7f4951 h1:DMTcQRFbEH62YPRWwOI647s2e5mHda3oBPMHfrLs2bw=
+gopkg.in/karalabe/cookiejar.v2 v2.0.0-20150724131613-8dcd6a7f4951/go.mod h1:owOxCRGGeAx1uugABik6K9oeNu1cgxP/R9ItzLDxNWA=
