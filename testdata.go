@@ -23,7 +23,7 @@ package stackbenchtests
 import "github.com/ef-ds/benchmark"
 
 var (
-	tests benchmark.Benchmark
+	tests benchmark.Tests
 )
 
 // Pure slice based test stack implementation-------------------------------------------------------

@@ -30,6 +30,8 @@ import (
 	cookiejar "gopkg.in/karalabe/cookiejar.v2/collections/stack"
 )
 
+// tests variable is of type benchmark.Tests and is declared in the testdata.go source file.
+
 func BenchmarkSlowDecreaseList(b *testing.B) {
 	var l *list.List
 	tests.SlowDecrease(

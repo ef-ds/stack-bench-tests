@@ -30,6 +30,9 @@ import (
 	cookiejar "gopkg.in/karalabe/cookiejar.v2/collections/stack"
 )
 
+// tests variable is of type benchmark.Tests (https://github.com/ef-ds/benchmark/blob/master/tests.go)
+// and is declared in the testdata.go source file.
+
 func BenchmarkRefillFullList(b *testing.B) {
 	var l *list.List
 	tests.RefillFull(

@@ -18,26 +18,11 @@ This command will run all tests for all stacks locally once. This should be good
 As a general purpose LIFO stack, stack is the data structure that displays the most balanced performance, performing either very competitively or besting all other stacks in all the different test scenarios.
 
 
-## Efficient Data Structures stack vs deque
-
-Efficient Data Structures implements this stack package as well as the [deque](https://github.com/ef-ds/deque) package which can also be used as a LIFO stack.
-
-The stack implementation in this package is a simplified version of the stack implemented in the deque package. The main differences are:
-
-1) Stack is a simpler version of deque that performs better and is more efficient than deque on most, if not all, tests
-2) Differently from deque, stack doesn't release the arrays from memory as the items are poppoed off from deque
-
-The fact that stack doesn't release the extra arrays from memory as the items are popped off gives the stack a full sized
-buffer for refill scenarios. This means stack will be faster and more efficient, but also means stack will hold on to extra memory after heavy use when compared to deque. This is the way that most stacks work by default, such as the [CustomSliceStack](testdata.go) and [cookiejar stack](https://github.com/karalabe/cookiejar/blob/master/collections/stack/stack.go).
-
-
 ## Results
-
 Given the enormous amount of test data, it can be difficult and time consuming to find out the net impact of all the tests,
 so we generally spend most of the time on the results of the, arguably, most important test: the Microservice test.
 
 Below results is for stack [v1.0.0](https://github.com/ef-ds/stack/blob/master/CHANGELOG.md).
-
 
 
 ### Microservice Test Results
