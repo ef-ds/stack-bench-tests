@@ -22,11 +22,8 @@ Efficient Data Structures implements this stack package as well as the [deque](h
 
 The stack implementated in this stack package is a simplified version of this deque package. When it comes to using the packages as a LIFO stack, the main differences are:
 
-1) Stack is a simpler version of deque that performs better and is more efficient than deque on most, if not all, LIFO stack tests
-2) Differently from deque, stack doesn't release the arrays from memory as the items are poppoed off from the data structure
-
-The fact that stack doesn't release the extra arrays from memory as the items are popped off gives the stack a full sized
-buffer for refill scenarios. This means stack will be faster and more efficient, but also means stack will hold on to extra memory after heavy use when compared to deque. This is the way that most stacks work by default, such as the [CustomSliceStack](testdata.go) and [cookiejar stack](https://github.com/karalabe/cookiejar/blob/master/collections/stack/stack.go).
+1) Stack is a simpler version of deque that performs better than deque on most, if not all, LIFO stack tests
+2) Differently from deque which attempts to reuse slices, stack doesn't implement such logic making it faster, especially for small data sets, but also causes more allocations for larger data sets (but with similar performance)
 
 
 ## Results
