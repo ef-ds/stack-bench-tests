@@ -20,7 +20,7 @@ As a general purpose LIFO stack, stack is the data structure that displays the m
 
 ## Results
 Given the enormous amount of test data, it can be difficult and time consuming to find out the net impact of all the tests,
-so we generally spend most of the time on the results of the, arguably, most important test: the Microservice test.
+so we generally spend most of the time on the results of the Microservice test, which is a composite test of all other tests, and the very simple Fill tests, which just sequentially add and remove N number of items.
 
 Below results is for stack [v1.0.1](https://github.com/ef-ds/stack/blob/master/CHANGELOG.md).
 
