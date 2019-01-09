@@ -93,7 +93,7 @@ name        old allocs/op  new allocs/op  delta
 /1000000-4     1.00M ± 0%     1.00M ± 0%    -0.39%  (p=0.000 n=10+10)
 ```
 
-stack vs [cookiejar](https://github.com/karalabe/cookiejar/blob/master/collections/deque/deque.go) - [fill tests](benchmark-fill_test.go)
+stack vs [cookiejar](https://github.com/karalabe/cookiejar/blob/master/collections/stack/stack.go) - [fill tests](benchmark-fill_test.go)
 ```
 benchstat testdata/BenchmarkFillStackv1.0.1.txt testdata/BenchmarkFillCookiejar.txt
 name        old time/op    new time/op     delta
@@ -230,7 +230,7 @@ name        old allocs/op  new allocs/op  delta
 /1000000-4     7.02M ± 0%     7.00M ± 0%    -0.22%  (p=0.000 n=10+10)
 ```
 
-stack vs [cookiejar](https://github.com/karalabe/cookiejar/blob/master/collections/deque/deque.go) - [microservice tests](benchmark-microservice_test.go)
+stack vs [cookiejar](https://github.com/karalabe/cookiejar/blob/master/collections/stack/stack.go) - [microservice tests](benchmark-microservice_test.go)
 ```
 benchstat testdata/BenchmarkMicroserviceStackv1.0.1.txt testdata/BenchmarkMicroserviceCookiejar.txt
 name        old time/op    new time/op    delta
