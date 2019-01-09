@@ -19,13 +19,147 @@ As a general purpose LIFO stack, stack is the data structure that displays the m
 
 
 ## Results
-Given the enormous amount of test data, it can be difficult and time consuming to find out the net impact of all the tests,
-so we generally spend most of the time on the results of the Microservice test, which is a composite test of all other tests, and the very simple Fill tests, which just sequentially add and remove N number of items.
+Given the enormous amount of test data, it can be difficult and time consuming to find out the net impact of all the tests, so we generally spend most of the time on the results of the very simple fill tests, which sequentially add and remove N number of items, and the Microservice test, which is a composite test of all other tests.
 
 Below results is for stack [v1.0.1](https://github.com/ef-ds/stack/blob/master/CHANGELOG.md).
 
 
+### Fill Test Results
+stack vs [list](https://github.com/golang/go/tree/master/src/container/list) - [fill tests](benchmark-fill_test.go)
+```
+benchstat testdata/BenchmarkFillStackv1.0.1.txt testdata/BenchmarkFillList.txt
+name        old time/op    new time/op    delta
+/0-4          27.6ns ± 1%    41.7ns ±10%   +51.09%  (p=0.000 n=10+10)
+/1-4           156ns ± 1%     114ns ± 4%   -26.54%  (p=0.000 n=10+9)
+/10-4          539ns ± 0%     747ns ± 4%   +38.77%  (p=0.000 n=9+9)
+/100-4        4.13µs ± 0%    7.00µs ± 6%   +69.72%  (p=0.000 n=8+10)
+/1000-4       34.2µs ± 0%    71.9µs ± 7%  +110.10%  (p=0.000 n=9+10)
+/10000-4       321µs ± 0%     726µs ± 6%  +126.35%  (p=0.000 n=9+10)
+/100000-4     3.50ms ± 1%   20.65ms ± 8%  +490.71%  (p=0.000 n=10+10)
+/1000000-4    40.6ms ± 3%   158.5ms ± 8%  +290.39%  (p=0.000 n=10+9)
 
+name        old alloc/op   new alloc/op   delta
+/0-4           16.0B ± 0%     48.0B ± 0%  +200.00%  (p=0.000 n=10+10)
+/1-4            192B ± 0%      112B ± 0%   -41.67%  (p=0.000 n=10+10)
+/10-4           592B ± 0%      688B ± 0%   +16.22%  (p=0.000 n=10+10)
+/100-4        5.62kB ± 0%    6.45kB ± 0%   +14.81%  (p=0.000 n=10+10)
+/1000-4       40.5kB ± 0%    64.0kB ± 0%   +58.03%  (p=0.000 n=10+10)
+/10000-4       333kB ± 0%     640kB ± 0%   +92.46%  (p=0.000 n=10+10)
+/100000-4     3.22MB ± 0%    6.40MB ± 0%   +98.76%  (p=0.000 n=10+10)
+/1000000-4    32.1MB ± 0%    64.0MB ± 0%   +99.52%  (p=0.000 n=10+9)
+
+name        old allocs/op  new allocs/op  delta
+/0-4            1.00 ± 0%      1.00 ± 0%      ~     (all equal)
+/1-4            4.00 ± 0%      3.00 ± 0%   -25.00%  (p=0.000 n=10+10)
+/10-4           14.0 ± 0%      21.0 ± 0%   +50.00%  (p=0.000 n=10+10)
+/100-4           107 ± 0%       201 ± 0%   +87.85%  (p=0.000 n=10+10)
+/1000-4        1.01k ± 0%     2.00k ± 0%   +97.92%  (p=0.000 n=10+10)
+/10000-4       10.0k ± 0%     20.0k ± 0%   +99.07%  (p=0.000 n=10+10)
+/100000-4       100k ± 0%      200k ± 0%   +99.21%  (p=0.000 n=10+10)
+/1000000-4     1.00M ± 0%     2.00M ± 0%   +99.22%  (p=0.000 n=10+10)
+```
+
+stack vs [CustomSliceStack](testdata_test.go) - [fill tests](benchmark-fill_test.go)
+```
+benchstat testdata/BenchmarkFillStackv1.0.1.txt testdata/BenchmarkFillSlice.txt
+name        old time/op    new time/op    delta
+/0-4          27.6ns ± 1%    39.0ns ± 1%   +41.59%  (p=0.000 n=10+10)
+/1-4           156ns ± 1%      93ns ± 1%   -40.44%  (p=0.000 n=10+10)
+/10-4          539ns ± 0%     570ns ± 1%    +5.78%  (p=0.000 n=9+9)
+/100-4        4.13µs ± 0%    3.58µs ± 1%   -13.32%  (p=0.000 n=8+10)
+/1000-4       34.2µs ± 0%    30.0µs ± 1%   -12.36%  (p=0.000 n=9+9)
+/10000-4       321µs ± 0%     368µs ± 1%   +14.57%  (p=0.000 n=9+10)
+/100000-4     3.50ms ± 1%    8.11ms ± 2%  +132.06%  (p=0.000 n=10+9)
+/1000000-4    40.6ms ± 3%   105.8ms ±10%  +160.47%  (p=0.000 n=10+10)
+
+name        old alloc/op   new alloc/op   delta
+/0-4           16.0B ± 0%     32.0B ± 0%  +100.00%  (p=0.000 n=10+10)
+/1-4            192B ± 0%       56B ± 0%   -70.83%  (p=0.000 n=10+10)
+/10-4           592B ± 0%      440B ± 0%   -25.68%  (p=0.000 n=10+10)
+/100-4        5.62kB ± 0%    3.67kB ± 0%   -34.62%  (p=0.000 n=10+10)
+/1000-4       40.5kB ± 0%    32.4kB ± 0%   -20.04%  (p=0.000 n=10+10)
+/10000-4       333kB ± 0%     546kB ± 0%   +64.28%  (p=0.000 n=10+10)
+/100000-4     3.22MB ± 0%    6.25MB ± 0%   +94.24%  (p=0.000 n=10+10)
+/1000000-4    32.1MB ± 0%    61.2MB ± 0%   +90.75%  (p=0.000 n=10+10)
+
+name        old allocs/op  new allocs/op  delta
+/0-4            1.00 ± 0%      1.00 ± 0%      ~     (all equal)
+/1-4            4.00 ± 0%      3.00 ± 0%   -25.00%  (p=0.000 n=10+10)
+/10-4           14.0 ± 0%      16.0 ± 0%   +14.29%  (p=0.000 n=10+10)
+/100-4           107 ± 0%       109 ± 0%    +1.87%  (p=0.000 n=10+10)
+/1000-4        1.01k ± 0%     1.01k ± 0%    +0.10%  (p=0.000 n=10+10)
+/10000-4       10.0k ± 0%     10.0k ± 0%    -0.26%  (p=0.000 n=10+10)
+/100000-4       100k ± 0%      100k ± 0%    -0.37%  (p=0.000 n=10+10)
+/1000000-4     1.00M ± 0%     1.00M ± 0%    -0.39%  (p=0.000 n=10+10)
+```
+
+stack vs [cookiejar](https://github.com/karalabe/cookiejar/blob/master/collections/deque/deque.go) - [fill tests](benchmark-fill_test.go)
+```
+benchstat testdata/BenchmarkFillStackv1.0.1.txt testdata/BenchmarkFillCookiejar.txt
+name        old time/op    new time/op     delta
+/0-4          27.6ns ± 1%  10035.1ns ± 7%   +36285.46%  (p=0.000 n=10+9)
+/1-4           156ns ± 1%    10756ns ±16%    +6803.59%  (p=0.000 n=10+10)
+/10-4          539ns ± 0%    10329ns ± 4%    +1817.95%  (p=0.000 n=9+9)
+/100-4        4.13µs ± 0%    12.82µs ± 3%     +210.71%  (p=0.000 n=8+9)
+/1000-4       34.2µs ± 0%     39.3µs ± 2%      +14.82%  (p=0.000 n=9+9)
+/10000-4       321µs ± 0%      324µs ± 1%       +0.87%  (p=0.004 n=9+9)
+/100000-4     3.50ms ± 1%     3.61ms ± 5%       +3.32%  (p=0.000 n=10+10)
+/1000000-4    40.6ms ± 3%     43.6ms ± 3%       +7.29%  (p=0.000 n=10+10)
+
+name        old alloc/op   new alloc/op    delta
+/0-4           16.0B ± 0%   65648.0B ± 0%  +410200.00%  (p=0.000 n=10+10)
+/1-4            192B ± 0%     65664B ± 0%   +34100.00%  (p=0.000 n=10+10)
+/10-4           592B ± 0%     65808B ± 0%   +11016.22%  (p=0.000 n=10+10)
+/100-4        5.62kB ± 0%    67.25kB ± 0%    +1097.44%  (p=0.000 n=10+10)
+/1000-4       40.5kB ± 0%     81.6kB ± 0%     +101.46%  (p=0.000 n=10+10)
+/10000-4       333kB ± 0%      357kB ± 0%       +7.31%  (p=0.000 n=10+10)
+/100000-4     3.22MB ± 0%     3.24MB ± 0%       +0.62%  (p=0.000 n=10+10)
+/1000000-4    32.1MB ± 0%     32.1MB ± 0%       -0.03%  (p=0.000 n=10+9)
+
+name        old allocs/op  new allocs/op   delta
+/0-4            1.00 ± 0%       3.00 ± 0%     +200.00%  (p=0.000 n=10+10)
+/1-4            4.00 ± 0%       4.00 ± 0%         ~     (all equal)
+/10-4           14.0 ± 0%       13.0 ± 0%       -7.14%  (p=0.000 n=10+10)
+/100-4           107 ± 0%        103 ± 0%       -3.74%  (p=0.000 n=10+10)
+/1000-4        1.01k ± 0%      1.00k ± 0%       -0.79%  (p=0.000 n=10+10)
+/10000-4       10.0k ± 0%      10.0k ± 0%       -0.40%  (p=0.000 n=10+10)
+/100000-4       100k ± 0%       100k ± 0%       -0.37%  (p=0.000 n=10+10)
+/1000000-4     1.00M ± 0%      1.00M ± 0%       -0.36%  (p=0.000 n=10+10)
+```
+
+stack vs [deque](https://github.com/ef-ds/deque) - [fill tests](benchmark-fill_test.go)
+```
+benchstat testdata/BenchmarkFillStackv1.0.1.txt testdata/BenchmarkFillDeque.txt
+name        old time/op    new time/op    delta
+/0-4          27.6ns ± 1%    37.4ns ± 0%   +35.73%  (p=0.000 n=10+9)
+/1-4           156ns ± 1%     171ns ± 1%   +10.04%  (p=0.000 n=10+9)
+/10-4          539ns ± 0%     583ns ± 0%    +8.27%  (p=0.000 n=9+9)
+/100-4        4.13µs ± 0%    4.73µs ± 0%   +14.73%  (p=0.000 n=8+8)
+/1000-4       34.2µs ± 0%    36.6µs ± 0%    +6.89%  (p=0.000 n=9+9)
+/10000-4       321µs ± 0%     363µs ± 0%   +13.10%  (p=0.000 n=9+9)
+/100000-4     3.50ms ± 1%    3.85ms ± 2%   +10.14%  (p=0.000 n=10+10)
+/1000000-4    40.6ms ± 3%    44.0ms ± 3%    +8.40%  (p=0.000 n=10+10)
+
+name        old alloc/op   new alloc/op   delta
+/0-4           16.0B ± 0%     64.0B ± 0%  +300.00%  (p=0.000 n=10+10)
+/1-4            192B ± 0%      192B ± 0%      ~     (all equal)
+/10-4           592B ± 0%      592B ± 0%      ~     (all equal)
+/100-4        5.62kB ± 0%    7.20kB ± 0%   +28.21%  (p=0.000 n=10+10)
+/1000-4       40.5kB ± 0%    34.0kB ± 0%   -16.03%  (p=0.000 n=10+10)
+/10000-4       333kB ± 0%     323kB ± 0%    -2.85%  (p=0.000 n=10+10)
+/100000-4     3.22MB ± 0%    3.22MB ± 0%    +0.06%  (p=0.000 n=10+10)
+/1000000-4    32.1MB ± 0%    32.2MB ± 0%    +0.34%  (p=0.000 n=10+10)
+
+name        old allocs/op  new allocs/op  delta
+/0-4            1.00 ± 0%      1.00 ± 0%      ~     (all equal)
+/1-4            4.00 ± 0%      4.00 ± 0%      ~     (all equal)
+/10-4           14.0 ± 0%      14.0 ± 0%      ~     (all equal)
+/100-4           107 ± 0%       107 ± 0%      ~     (all equal)
+/1000-4        1.01k ± 0%     1.01k ± 0%    +0.20%  (p=0.000 n=10+10)
+/10000-4       10.0k ± 0%     10.1k ± 0%    +0.36%  (p=0.000 n=10+10)
+/100000-4       100k ± 0%      101k ± 0%    +0.39%  (p=0.000 n=10+10)
+/1000000-4     1.00M ± 0%     1.01M ± 0%    +0.39%  (p=0.000 n=10+10)
+```
 
 ### Microservice Test Results
 stack vs [list](https://github.com/golang/go/tree/master/src/container/list) - [microservice tests](benchmark-microservice_test.go)
@@ -166,40 +300,6 @@ name        old allocs/op  new allocs/op  delta
 
 ### Other Test Results
 #### stack vs [list](https://github.com/golang/go/tree/master/src/container/list)
-stack vs list - [fill tests](benchmark-fill_test.go)
-```
-benchstat testdata/BenchmarkFillStackv1.0.1.txt testdata/BenchmarkFillList.txt
-name        old time/op    new time/op    delta
-/0-4          27.6ns ± 1%    41.7ns ±10%   +51.09%  (p=0.000 n=10+10)
-/1-4           156ns ± 1%     114ns ± 4%   -26.54%  (p=0.000 n=10+9)
-/10-4          539ns ± 0%     747ns ± 4%   +38.77%  (p=0.000 n=9+9)
-/100-4        4.13µs ± 0%    7.00µs ± 6%   +69.72%  (p=0.000 n=8+10)
-/1000-4       34.2µs ± 0%    71.9µs ± 7%  +110.10%  (p=0.000 n=9+10)
-/10000-4       321µs ± 0%     726µs ± 6%  +126.35%  (p=0.000 n=9+10)
-/100000-4     3.50ms ± 1%   20.65ms ± 8%  +490.71%  (p=0.000 n=10+10)
-/1000000-4    40.6ms ± 3%   158.5ms ± 8%  +290.39%  (p=0.000 n=10+9)
-
-name        old alloc/op   new alloc/op   delta
-/0-4           16.0B ± 0%     48.0B ± 0%  +200.00%  (p=0.000 n=10+10)
-/1-4            192B ± 0%      112B ± 0%   -41.67%  (p=0.000 n=10+10)
-/10-4           592B ± 0%      688B ± 0%   +16.22%  (p=0.000 n=10+10)
-/100-4        5.62kB ± 0%    6.45kB ± 0%   +14.81%  (p=0.000 n=10+10)
-/1000-4       40.5kB ± 0%    64.0kB ± 0%   +58.03%  (p=0.000 n=10+10)
-/10000-4       333kB ± 0%     640kB ± 0%   +92.46%  (p=0.000 n=10+10)
-/100000-4     3.22MB ± 0%    6.40MB ± 0%   +98.76%  (p=0.000 n=10+10)
-/1000000-4    32.1MB ± 0%    64.0MB ± 0%   +99.52%  (p=0.000 n=10+9)
-
-name        old allocs/op  new allocs/op  delta
-/0-4            1.00 ± 0%      1.00 ± 0%      ~     (all equal)
-/1-4            4.00 ± 0%      3.00 ± 0%   -25.00%  (p=0.000 n=10+10)
-/10-4           14.0 ± 0%      21.0 ± 0%   +50.00%  (p=0.000 n=10+10)
-/100-4           107 ± 0%       201 ± 0%   +87.85%  (p=0.000 n=10+10)
-/1000-4        1.01k ± 0%     2.00k ± 0%   +97.92%  (p=0.000 n=10+10)
-/10000-4       10.0k ± 0%     20.0k ± 0%   +99.07%  (p=0.000 n=10+10)
-/100000-4       100k ± 0%      200k ± 0%   +99.21%  (p=0.000 n=10+10)
-/1000000-4     1.00M ± 0%     2.00M ± 0%   +99.22%  (p=0.000 n=10+10)
-```
-
 stack vs list - [refill tests](benchmark-refill_test.go)
 ```
 benchstat testdata/BenchmarkRefillStackv1.0.1.txt testdata/BenchmarkRefillList.txt
@@ -350,40 +450,6 @@ name        old allocs/op  new allocs/op  delta
 ```
 
 #### stack vs [CustomSliceStack](https://github.com/ef-ds/stack-bench-tests/blob/master/testdata.go)
-stack vs CustomSliceStack - [fill tests](benchmark-fill_test.go)
-```
-benchstat testdata/BenchmarkFillStackv1.0.1.txt testdata/BenchmarkFillSlice.txt
-name        old time/op    new time/op    delta
-/0-4          27.6ns ± 1%    39.0ns ± 1%   +41.59%  (p=0.000 n=10+10)
-/1-4           156ns ± 1%      93ns ± 1%   -40.44%  (p=0.000 n=10+10)
-/10-4          539ns ± 0%     570ns ± 1%    +5.78%  (p=0.000 n=9+9)
-/100-4        4.13µs ± 0%    3.58µs ± 1%   -13.32%  (p=0.000 n=8+10)
-/1000-4       34.2µs ± 0%    30.0µs ± 1%   -12.36%  (p=0.000 n=9+9)
-/10000-4       321µs ± 0%     368µs ± 1%   +14.57%  (p=0.000 n=9+10)
-/100000-4     3.50ms ± 1%    8.11ms ± 2%  +132.06%  (p=0.000 n=10+9)
-/1000000-4    40.6ms ± 3%   105.8ms ±10%  +160.47%  (p=0.000 n=10+10)
-
-name        old alloc/op   new alloc/op   delta
-/0-4           16.0B ± 0%     32.0B ± 0%  +100.00%  (p=0.000 n=10+10)
-/1-4            192B ± 0%       56B ± 0%   -70.83%  (p=0.000 n=10+10)
-/10-4           592B ± 0%      440B ± 0%   -25.68%  (p=0.000 n=10+10)
-/100-4        5.62kB ± 0%    3.67kB ± 0%   -34.62%  (p=0.000 n=10+10)
-/1000-4       40.5kB ± 0%    32.4kB ± 0%   -20.04%  (p=0.000 n=10+10)
-/10000-4       333kB ± 0%     546kB ± 0%   +64.28%  (p=0.000 n=10+10)
-/100000-4     3.22MB ± 0%    6.25MB ± 0%   +94.24%  (p=0.000 n=10+10)
-/1000000-4    32.1MB ± 0%    61.2MB ± 0%   +90.75%  (p=0.000 n=10+10)
-
-name        old allocs/op  new allocs/op  delta
-/0-4            1.00 ± 0%      1.00 ± 0%      ~     (all equal)
-/1-4            4.00 ± 0%      3.00 ± 0%   -25.00%  (p=0.000 n=10+10)
-/10-4           14.0 ± 0%      16.0 ± 0%   +14.29%  (p=0.000 n=10+10)
-/100-4           107 ± 0%       109 ± 0%    +1.87%  (p=0.000 n=10+10)
-/1000-4        1.01k ± 0%     1.01k ± 0%    +0.10%  (p=0.000 n=10+10)
-/10000-4       10.0k ± 0%     10.0k ± 0%    -0.26%  (p=0.000 n=10+10)
-/100000-4       100k ± 0%      100k ± 0%    -0.37%  (p=0.000 n=10+10)
-/1000000-4     1.00M ± 0%     1.00M ± 0%    -0.39%  (p=0.000 n=10+10)
-```
-
 stack vs CustomSliceStack - [refill tests](benchmark-refill_test.go)
 ```
 benchstat testdata/BenchmarkRefillStackv1.0.1.txt testdata/BenchmarkRefillSlice.txt
@@ -534,40 +600,6 @@ name        old allocs/op  new allocs/op  delta
 ```
 
 #### stack vs [cookiejar](https://github.com/karalabe/cookiejar/blob/v2/collections/stack/stack.go)
-stack vs cookiejar - [fill tests](benchmark-fill_test.go)
-```
-benchstat testdata/BenchmarkFillStackv1.0.1.txt testdata/BenchmarkFillCookiejar.txt
-name        old time/op    new time/op     delta
-/0-4          27.6ns ± 1%  10035.1ns ± 7%   +36285.46%  (p=0.000 n=10+9)
-/1-4           156ns ± 1%    10756ns ±16%    +6803.59%  (p=0.000 n=10+10)
-/10-4          539ns ± 0%    10329ns ± 4%    +1817.95%  (p=0.000 n=9+9)
-/100-4        4.13µs ± 0%    12.82µs ± 3%     +210.71%  (p=0.000 n=8+9)
-/1000-4       34.2µs ± 0%     39.3µs ± 2%      +14.82%  (p=0.000 n=9+9)
-/10000-4       321µs ± 0%      324µs ± 1%       +0.87%  (p=0.004 n=9+9)
-/100000-4     3.50ms ± 1%     3.61ms ± 5%       +3.32%  (p=0.000 n=10+10)
-/1000000-4    40.6ms ± 3%     43.6ms ± 3%       +7.29%  (p=0.000 n=10+10)
-
-name        old alloc/op   new alloc/op    delta
-/0-4           16.0B ± 0%   65648.0B ± 0%  +410200.00%  (p=0.000 n=10+10)
-/1-4            192B ± 0%     65664B ± 0%   +34100.00%  (p=0.000 n=10+10)
-/10-4           592B ± 0%     65808B ± 0%   +11016.22%  (p=0.000 n=10+10)
-/100-4        5.62kB ± 0%    67.25kB ± 0%    +1097.44%  (p=0.000 n=10+10)
-/1000-4       40.5kB ± 0%     81.6kB ± 0%     +101.46%  (p=0.000 n=10+10)
-/10000-4       333kB ± 0%      357kB ± 0%       +7.31%  (p=0.000 n=10+10)
-/100000-4     3.22MB ± 0%     3.24MB ± 0%       +0.62%  (p=0.000 n=10+10)
-/1000000-4    32.1MB ± 0%     32.1MB ± 0%       -0.03%  (p=0.000 n=10+9)
-
-name        old allocs/op  new allocs/op   delta
-/0-4            1.00 ± 0%       3.00 ± 0%     +200.00%  (p=0.000 n=10+10)
-/1-4            4.00 ± 0%       4.00 ± 0%         ~     (all equal)
-/10-4           14.0 ± 0%       13.0 ± 0%       -7.14%  (p=0.000 n=10+10)
-/100-4           107 ± 0%        103 ± 0%       -3.74%  (p=0.000 n=10+10)
-/1000-4        1.01k ± 0%      1.00k ± 0%       -0.79%  (p=0.000 n=10+10)
-/10000-4       10.0k ± 0%      10.0k ± 0%       -0.40%  (p=0.000 n=10+10)
-/100000-4       100k ± 0%       100k ± 0%       -0.37%  (p=0.000 n=10+10)
-/1000000-4     1.00M ± 0%      1.00M ± 0%       -0.36%  (p=0.000 n=10+10)
-```
-
 stack vs cookiejar - [refill tests](benchmark-refill_test.go)
 ```
 benchstat testdata/BenchmarkRefillStackv1.0.1.txt testdata/BenchmarkRefillCookiejar.txt
@@ -718,40 +750,6 @@ name        old allocs/op  new allocs/op  delta
 ```
 
 #### stack vs [deque](https://github.com/ef-ds/deque)
-stack vs Deque - [fill tests](benchmark-fill_test.go)
-```
-benchstat testdata/BenchmarkFillStackv1.0.1.txt testdata/BenchmarkFillDeque.txt
-name        old time/op    new time/op    delta
-/0-4          27.6ns ± 1%    37.4ns ± 0%   +35.73%  (p=0.000 n=10+9)
-/1-4           156ns ± 1%     171ns ± 1%   +10.04%  (p=0.000 n=10+9)
-/10-4          539ns ± 0%     583ns ± 0%    +8.27%  (p=0.000 n=9+9)
-/100-4        4.13µs ± 0%    4.73µs ± 0%   +14.73%  (p=0.000 n=8+8)
-/1000-4       34.2µs ± 0%    36.6µs ± 0%    +6.89%  (p=0.000 n=9+9)
-/10000-4       321µs ± 0%     363µs ± 0%   +13.10%  (p=0.000 n=9+9)
-/100000-4     3.50ms ± 1%    3.85ms ± 2%   +10.14%  (p=0.000 n=10+10)
-/1000000-4    40.6ms ± 3%    44.0ms ± 3%    +8.40%  (p=0.000 n=10+10)
-
-name        old alloc/op   new alloc/op   delta
-/0-4           16.0B ± 0%     64.0B ± 0%  +300.00%  (p=0.000 n=10+10)
-/1-4            192B ± 0%      192B ± 0%      ~     (all equal)
-/10-4           592B ± 0%      592B ± 0%      ~     (all equal)
-/100-4        5.62kB ± 0%    7.20kB ± 0%   +28.21%  (p=0.000 n=10+10)
-/1000-4       40.5kB ± 0%    34.0kB ± 0%   -16.03%  (p=0.000 n=10+10)
-/10000-4       333kB ± 0%     323kB ± 0%    -2.85%  (p=0.000 n=10+10)
-/100000-4     3.22MB ± 0%    3.22MB ± 0%    +0.06%  (p=0.000 n=10+10)
-/1000000-4    32.1MB ± 0%    32.2MB ± 0%    +0.34%  (p=0.000 n=10+10)
-
-name        old allocs/op  new allocs/op  delta
-/0-4            1.00 ± 0%      1.00 ± 0%      ~     (all equal)
-/1-4            4.00 ± 0%      4.00 ± 0%      ~     (all equal)
-/10-4           14.0 ± 0%      14.0 ± 0%      ~     (all equal)
-/100-4           107 ± 0%       107 ± 0%      ~     (all equal)
-/1000-4        1.01k ± 0%     1.01k ± 0%    +0.20%  (p=0.000 n=10+10)
-/10000-4       10.0k ± 0%     10.1k ± 0%    +0.36%  (p=0.000 n=10+10)
-/100000-4       100k ± 0%      101k ± 0%    +0.39%  (p=0.000 n=10+10)
-/1000000-4     1.00M ± 0%     1.01M ± 0%    +0.39%  (p=0.000 n=10+10)
-```
-
 stack vs Deque - [refill tests](benchmark-refill_test.go)
 ```
 benchstat testdata/BenchmarkRefillStackv1.0.1.txt testdata/BenchmarkRefillDeque.txt
